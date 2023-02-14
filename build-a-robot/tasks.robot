@@ -13,6 +13,7 @@ Library           RPA.Tables
 Library           RPA.FileSystem
 Library           RPA.Archive
 Library           RPA.Dialogs
+Library           RPA.Robocorp.Vault
 
 
 # The robot should read some data from a local vault. In this case, do not store sensitive data such as credentials in the vault. 
@@ -46,7 +47,8 @@ Dialog as progress indicator
     set global variable    ${dialog}
 
 Open the robot order website
-    Open Available Browser  https://robotsparebinindustries.com/#/robot-order  headless=True
+    ${secret}  Get Secret    builtarobot
+    Open Available Browser  ${secret}[site]    headless=True  # https://robotsparebinindustries.com/#/robot-order  headless=True
 
 Get orders
     Download    https://robotsparebinindustries.com/orders.csv    overwrite=True
@@ -102,7 +104,7 @@ Go to order another robot
 
 Finishing process
     Add text     Process finished   size=Large
-    Add text input  Name
-    ...  label=To finish this process, tell us Your name
-    ...  placeholder=Enter your name here
-    ${name}   Run dialog  title=Finish
+    # Add text input  Name
+    # ...  label=To finish this process, tell us Your name
+    # ...  placeholder=Enter your name here
+    # ${name}   Run dialog  title=Finish
